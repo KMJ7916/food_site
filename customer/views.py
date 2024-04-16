@@ -57,7 +57,8 @@ def modify_cart(request):
     food = Food.objects.get(pk=food_id)
     cart, _ = Cart.objects.get_or_create(food=food)
     cart.amount+=int(request.POST['amountChange'])
-    cart.save()
+    if cart.amount>0:
+        cart.save()
     # 변경된 최종 결과를 반환(JSON 형식)
     context={
         'newQuantity': cart.amount,
